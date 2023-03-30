@@ -7,7 +7,7 @@ import Cartwidget from "./cartwidget/cartwidget.js";
 function Navbar() {
     return (
       <>
-       <nav className="navbar navbar-expand-lg bg-#00C851">
+      <nav className="navbar navbar-expand-lg bg-#00C851">
   <div className="container-fluid">
     <a className="navbar-brand" href="#">Navbar</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,15 +36,15 @@ function Navbar() {
     </div>
   </div>
     <div>
-     </div>
-     <Cartwidget/>
-</nav>
+    
+    </div>
+    <Cartwidget/>
+  </nav>
+  </>
+    )
+}
 
-      </>
-    );
-  }
-
-  export default Navbar;
+export default Navbar
 
 
 
