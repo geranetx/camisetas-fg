@@ -1,17 +1,19 @@
 import {useState, useEffect } from 'react'
 import {getProducts, getProductsByCategory} from '../../asyncMock'
 import { useParams } from 'react-router-dom'
+import { Spinner } from 'reactstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const ItemListContainer = () => {
     const [products, setProducts] = useState ([])
     const [loading, setLoading] = useState (true)
     
-    const {categotyId} = useParams()
+    const {categoryId} = useParams()
 
     useEffect (() => {
-const asyncFunctions = categotyId ? getProductsByCategory : getProducts
+const asyncFunctions = categoryId ? getProductsByCategory : getProducts
 
-    asyncFunctions(categotyId)
+    asyncFunctions(categoryId)
     .then(response => {
         setProducts(response)
     } )
@@ -23,10 +25,10 @@ const asyncFunctions = categotyId ? getProductsByCategory : getProducts
     })
 
 
-    },  [])
+    },  [categoryId])
     
     if (loading) {
-    return <h1>Cargando...</h1>
+    return <Spinner color= "primary"/>
 }
     return (
         <div>

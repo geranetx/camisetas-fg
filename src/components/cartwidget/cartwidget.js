@@ -1,6 +1,7 @@
 import cart from './assets/cart1.png'
+import './CartWidget.css'
 
-const Cartwidget = () => {
+const CartWidget = () => {
     return (
         <div>
       <img src={cart} alt='cart-widget'/>
@@ -9,4 +10,4 @@ const Cartwidget = () => {
 )
 }
 
-export default Cartwidget
+export default CartWidget
