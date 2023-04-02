@@ -2,7 +2,11 @@
 
 
 nav{
-  background-color: #64c78b;
+  background-image: url(./assets/imagenes/fondo.navbar2.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 20vh;
+  background-size: cover;
 }
 
 h1{

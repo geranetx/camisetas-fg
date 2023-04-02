@@ -1,6 +1,6 @@
 import {useState, useEffect } from 'react'
 import {getProducts, getProductsByCategory} from '../../asyncMock'
-import { useParams } from 'react-router-dom'
+import { useParams, Link} from 'react-router-dom'
 import { Spinner } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -37,11 +37,12 @@ const asyncFunctions = categoryId ? getProductsByCategory : getProducts
                 {
             products.map( prod => {
                     return (
-                        <div>
+                        <div key={prod.id}>
                             <h2>{prod.name}</h2>
                             <img src={prod.img} alt={prod.name} style={{width: 100}}/>
-                            <button>Ver Detalles</button>
+                            <Link to={`/item/${prod.id}`} className='Option'>Ver detalle</Link>
                         </div>
+                             
                     )
      })
     }
