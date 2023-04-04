@@ -2,7 +2,8 @@ import {useState, useEffect } from "react"
 import { getProductById } from "../../asyncMock"
 import { Spinner } from 'reactstrap'
 import { useParams } from "react-router-dom"
-
+import ItemCount from "../ItemCount/ItemCount"
+import ItemDetail from "../ItemDetail/ItemDetail"
 
 
 
@@ -31,11 +32,7 @@ const {productId} = useParams()
     return (
         <div>
             <h1>Detalle del Producto</h1>
-            <div>
-            <h2>{product.name}</h2>
-            <img src={product.img} alt={product.name}/>
-            <h3>precio: ${product.price}</h3>
-            </div>
+            <ItemDetail {...product}/>
         </div> 
     )
 }
