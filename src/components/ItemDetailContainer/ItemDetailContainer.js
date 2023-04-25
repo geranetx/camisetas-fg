@@ -1,39 +1,28 @@
-import {useState, useEffect } from "react"
-import { getProductById } from "../../asyncMock"
-import { Spinner } from 'reactstrap'
-import { useParams } from "react-router-dom"
-import ItemCount from "../ItemCount/ItemCount"
-import ItemDetail from "../ItemDetail/ItemDetail"
 
-
+import { useState, useEffect } from 'react'
+import { getProductById } from '../../asyncMock'
+import ItemDetail from '../ItemDetail/ItemDetail'
+import { useParams } from 'react-router-dom'
 
 const ItemDetailContainer = () => {
-const [product, setProduct] = useState({})
-const [loading, setLoading] = useState(true)
-const {productId} = useParams()
-    
-    useEffect(() => {   
-        getProductById(productId)
-        .then(response =>{
+    const [product, setProduct] = useState()
+
+    const { itemId } = useParams()
+
+
+    useEffect(() => {
+        getProductById(itemId).then(response => {
             setProduct(response)
-        })
-        .catch   (error => {
+        }).catch(error => {
             console.log(error)
-             })
-        .finally(() => {
-            setLoading(false)
         })
-    }, [productId])
+    }, [itemId])
 
-    if (loading) {
-        return <Spinner color= "primary"/>
-    }
 
-    return (
-        <div>
-            <h1>Detalle del Producto</h1>
-            <ItemDetail {...product}/>
-        </div> 
+    return(
+        <div className='ItemDetailContainer' >
+            <ItemDetail  {...product} />
+        </div>
     )
 }
 

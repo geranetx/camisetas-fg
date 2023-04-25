@@ -3,8 +3,8 @@ import cart from './assets/cart1.png'
 
 const CartWidget = () => {
     return (
-        <div>
-      <img style={{display: 'flex', background: "white",}}  src={cart} alt='cart-widget'/>
+        <div className='carrito'>
+      <img src={cart} alt='cart-widget' className='CartImg'/>
       0
     </div>
 )

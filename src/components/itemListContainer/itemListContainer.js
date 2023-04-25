@@ -1,56 +1,52 @@
-import {useState, useEffect } from 'react'
-import {getProducts, getProductsByCategory} from '../../asyncMock'
-import { useParams, Link} from 'react-router-dom'
-import { Spinner } from 'reactstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { getDocs, collection, query, where } from 'firebase/firestore'
+import ItemList from '../ItemList/ItemList'
+import { db } from '../../services/firebase/firebaseConfig'
 
-const ItemListContainer = () => {
-    const [products, setProducts] = useState ([])
-    const [loading, setLoading] = useState (true)
-    
-    const {categoryId} = useParams()
+const ItemListContainer = ({ greeting }) => {
+    const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(true)
 
-    useEffect (() => {
-const asyncFunctions = categoryId ? getProductsByCategory : getProducts
+    const { categoryId } = useParams()
 
-    asyncFunctions(categoryId)
-    .then(response => {
-        setProducts(response)
-    } )
-    .catch   (error => {
-        console.log(error)
-         })
-    .finally(() => {
-        setLoading(false)
-    })
+    useEffect(() => {
+        setLoading(true)
 
+        const productsRef = categoryId 
+            ? query(collection(db, 'products'), where('category', '==', categoryId))
+            : collection(db, 'products')
 
-    },  [categoryId])
-    
-    if (loading) {
-    return <Spinner color= "primary"/>
-}
+        getDocs(productsRef)
+            .then(snapshot => {
+                const productsAdapted = snapshot.docs.map(doc => {
+                    const data = doc.data()
+                    return { id: doc.id, ...data}
+                })
+                setProducts(productsAdapted)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+        }, [categoryId])
+        
+        if(loading) {
+            return (
+                <div>
+                    <h1>Cargando...</h1>
+                </div>
+            )
+        }
     return (
         <div>
-            <h1>Camisetas FG</h1>
-            <div>
-                {
-            products.map( prod => {
-                    return (
-                        <div key={prod.id}>
-                            <h2>{prod.name}</h2>
-                            <img src={prod.img} alt={prod.name} style={{width: 100}}/>
-                            <Link to={`/item/${prod.id}`} className='Option'>Ver detalle</Link>
-                        </div>
-                             
-                    )
-     })
-    }
-            </div>
-
+            <h1>{greeting}</h1>
+            <ItemList products={products}/>
         </div>
-
     )
 }
 
-export default ItemListContainer 
+export default ItemListContainer
+
