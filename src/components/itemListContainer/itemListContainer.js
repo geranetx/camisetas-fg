@@ -14,8 +14,8 @@ const ItemListContainer = ({ greeting }) => {
         setLoading(true)
 
         const productsRef = categoryId 
-            ? query(collection(db, 'products'), where('category', '==', categoryId))
-            : collection(db, 'products')
+            ? query(collection(db, 'productos'), where('category', '==', categoryId))
+            : collection(db, 'productos')
 
         getDocs(productsRef)
             .then(snapshot => {
