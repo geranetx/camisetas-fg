@@ -7,13 +7,14 @@ import Cart from './components/Cart/Cart';
 import Checkout from './components/Checkout/Checkout';
 
 import { CartProvider } from './context/CartContext';
-
+import { NotificationProvider } from './notification/NotificationService';
 
 
 const App = () => {
   return (
     <div className='App'>
         <BrowserRouter>
+        <NotificationProvider>
           <CartProvider>
             <Navbar />
             <Routes>
@@ -24,6 +25,7 @@ const App = () => {
                 <Route path="/checkout" element={<Checkout />}/>
             </Routes>
           </CartProvider>
+          </NotificationProvider>
         </BrowserRouter>
     </div>
   )

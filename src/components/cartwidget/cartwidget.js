@@ -1,13 +1,19 @@
 import cart from './assets/cart1.png'
-
+import { useCart } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom'
 
 const CartWidget = () => {
-    return (
-        <div className='carrito'>
-      <img src={cart} alt='cart-widget' className='CartImg'/>
-      0
-    </div>
-)
+
+    const { totalQuantity } = useCart()
+
+    const navigate = useNavigate()
+
+    return(
+        <div to='/cart' className="CartWidget" onClick={() => navigate('/cart')}>
+            <img src={cart} alt='cart-widget' className='CartImg'/>
+            {totalQuantity}
+        </div>
+    );
 }
 
 export default CartWidget

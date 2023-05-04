@@ -2,11 +2,12 @@ import { useCart } from "../../context/CartContext"
 import { Link } from 'react-router-dom'
 
 const Cart = () => {
-    const { cart, total } = useCart()
+    const { cart, total, incrementQuantity, decrementQuantity, clearCart } = useCart()
 
     return (
         <div>
             <h1>Cart View</h1>
+            <button onClick={() => clearCart()}>Vaciar carrito</button>
             <div>
                 {
                     cart.map(prod => {
@@ -15,6 +16,8 @@ const Cart = () => {
                                 <h2>{prod.name}</h2>
                                 <h2>Cantidad: {prod.quantity}</h2>
                                 <h2>${prod.price} x Unidad</h2>
+                                <button onClick={() => decrementQuantity(prod.id)}>-</button>
+                                <button onClick={() => incrementQuantity(prod.id, prod.stock)}>+</button>
                             </div>
                         )
                     })
